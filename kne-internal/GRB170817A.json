@@ -1,0 +1,37 @@
+{
+	"GRB170817A":{
+		"name":"GRB170817A",
+		"sources":[
+			{
+				"name":"HST DDT",
+				"url":"http://www.stsci.edu/ops/program-lists/HST-DD.html"
+			}
+		],
+		"alias":[
+			{
+				"value":"GRB170817A"
+			}
+		],
+		"ra":[
+			{
+				"value":"13:09:48.09"
+			}
+		],
+		"dec":[
+			{
+				"value":"-23:22:53.35"
+			}
+		],
+		"host":[
+			{
+				"value":"NGC 4993"
+			}
+		],
+		"timeofmerger":[
+			{
+				"value":"57982.528519",
+				"u_value":"MJD"
+			}
+		]
+	}
+}
