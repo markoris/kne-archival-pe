@@ -46,6 +46,8 @@ def systemCounts(filepath):
 							
 			print(f"Data end. Vegacount: {vegacount}. AB count: {abcount}. Other count: {othercount}.")
 
-#systemCounts(filepath1)
-systemCounts(filepath2)
+
+systemCounts(filepath1)
+#systemCounts(filepath2)
+print("dev branch")
 
