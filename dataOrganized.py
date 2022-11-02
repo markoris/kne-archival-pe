@@ -2,7 +2,7 @@
 import glob
 import json
 filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-2000-2029/*")
-filepath2 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-internal/*")
+filepath2 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-internal/GRB*")
 
 def systemCounts(filepath):
 	for file in filepath:
@@ -46,6 +46,6 @@ def systemCounts(filepath):
 							
 			print(f"Data end. Vegacount: {vegacount}. AB count: {abcount}. Other count: {othercount}.")
 
-systemCounts(filepath1)
-#systemCounts(filepath2)
+#systemCounts(filepath1)
+systemCounts(filepath2)
 
