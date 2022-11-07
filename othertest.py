@@ -1,7 +1,7 @@
 #file used to test counting for "other" systems
 import glob
 import json
-filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-2000-2029/GRB060614*")
+filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-internal/GRB060614*")
 
 def systemCounts(filepath):
 	for file in filepath:
