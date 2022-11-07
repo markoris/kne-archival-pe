@@ -1,15 +1,17 @@
 #file used to test counting for "other" systems
 import glob
 import json
-filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-internal/GRB060614*")
+filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-internal/*")
 
 def systemCounts(filepath):
 	for file in filepath:
 		print(file)
 		list = file.split("/")
 		last = list[-1]
-		if last == "LICENSE":
-			print("end")
+	#	if last == "LICENSE":
+		#	print("end")
+		if last[0:2] == "GW" or "LI":
+			print("GW/LI")
 		else:
 			event = last[0:-5]
 			print(f" Event: {event}")
