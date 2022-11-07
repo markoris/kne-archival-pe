@@ -1,6 +1,4 @@
-#file used to test counting for "other" systems
-import glob
-import json
+import glob, json
 filepath1 = glob.glob("/home/emily.monclus/kne-archival-pe/kne-parsed/*")
 def systemCounts(filepath):
 	totalvega = 0
@@ -26,28 +24,19 @@ def systemCounts(filepath):
 				abcount = 0
 				othercount = 0
 				for dictionary in data[event]['photometry']:
-					#print(dictionary)
 					if "system" not in dictionary:
-						#print("no system in obs, othercount:")
-						othercount +=1 
-					#	print(othercount)
+						othercount +=1
 					for key in dictionary:
 						if key == "system":
 							if dictionary[key] == "Vega":
-								#print("Vega")
 								vegacount += 1
 								print(f"Vega count: {vegacount}")
 							elif dictionary[key] == "AB":
-								#print("AB")
 								abcount += 1
 								print(f"AB count: {abcount}")
 							else:
-								#print("Other")
 								othercount += 1
 								print("System not Ab/Vega, system name:")
-								#print(dictionary[key])
-					#	else:
-							#print(f"{key} not system")
 				totalother += othercount
 				totalvega += vegacount
 				totalab += abcount
