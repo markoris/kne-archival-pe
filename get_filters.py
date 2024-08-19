@@ -1,8 +1,17 @@
 from astroquery.svo_fps import SvoFps
 import numpy as np
 
+# The necessary filters are obtained by supplying the 
+# GRBXXXXXX.json file to utils.get_obs_sources(path_to_json).
+
+# As the process requires mapping the correct telescope, 
+# instrument, and filter information to the appropriate SVO ID, 
+# the mapping of the .json data to the SVO ID was done manually.
+# The mapping of all relevant filters is presented below.
+ 
 fmap = {
 	# Original observation filters
+	# GRB 050709 -> not being used! remove after rest of obs done, just example for now
 	'DanishR': 'LaSilla/DFOSC.Bessel_R',
 	'Gemini-Nr': 'Gemini/GMOS-N.r',
 	'HSTF814W': 'HST/ACS_WFC.F814W',
@@ -12,6 +21,46 @@ fmap = {
 	'HST+ACSF606W': 'HST/ACS_WFC.F606W',
 	'HST+ACSF814W': 'HST/ACS_WFC.F814W',
 	'HST+WFPC2F606W': 'HST/WFPC2-WF.F606W',
+	# GRB130603B
+	'CAHAV' 
+	'GTCr' 
+	'Gemini-Northg' 
+	'Gemini-Northi' 
+	'Gemini-Northr'
+	'Gemini-Northz'
+	'Gemini-Southg' 
+	'Gemini-Southi' 
+	'Gemini-Southr'
+	'HSTF160W' 
+	'HSTF606W' 
+	'MMTr' 
+	'Magellan/Baader' 
+	'Magellan/Clayr' 
+	'NOTr'
+	'SwiftV' 
+	'TNGi' 
+	'TNGr' 
+	'UKIRTJ' 
+	'UKIRTK' 
+	'VLTJ' 
+	'WHTg' 
+	'WHTi' 
+	'WHTz'
+	# GRB150101B
+	'Geminir'
+	'HSTF160W'
+	'HSTF606W'
+	'Magellanr'
+	'VLTJ'
+	# GRB160821B
+	'GTCg'
+	'GTCi'
+	'GTCr'
+	'GTCz'
+	'HSTF110W'
+	'HSTF160W'
+	'HSTF606W' 
+	'KeckIKs'
 	# Destination filters
 	'lsstg': 'LSST/LSST.g',
 	'lsstr': 'LSST/LSST.r',
