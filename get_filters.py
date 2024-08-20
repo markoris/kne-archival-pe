@@ -64,6 +64,8 @@ fmap = {
 	# GRB211211A
 	#'DOTU: 'Generic/Bessell.U',
 	#'DOTV: 'Generic/Bessell.V',
+	#'KMTNet/SSOR': 'Generic/Johnson.R',
+	#'KMTNet/SAAOI': 'Generic/Johnson.I',
 	# etc...
 	# Destination filters
 	'lsstg': 'LSST/LSST.g',
@@ -85,6 +87,16 @@ DOT_transmissions = {'DOTU': 0.49,
 		     'DOTR': 0.79,
 		     'DOTI': 0.80}
 
+# B/V 0.85, R 0.90, I 0.80
+
+KMTNet_transmissions = {'KMTNet/SSOR': 0.90,
+			'KMTNet/SAAOR': 0.90,
+			'KMTNet/CTIOR': 0.90 
+			'KMTNet/SSOI': 0.80,
+			'KMTNet/SAAOI': 0.80,
+			'KMTNet/CTIOI': 0.80,
+			}	
+
 for key in fmap.keys():
 	fname = 'filters/'+fmap[key].replace('/', '.')+'.dat'
 	print(fname)
@@ -93,5 +105,6 @@ for key in fmap.keys():
 	# For instruments with no transmission data, use generic filters
 	# and scale by reported transmission, if applicable
 	if 'DOT' in key: data[:, 1] *= DOT_transmissions[key]
+	if 'KMTNet' in key: data[:, 1] *= KMTNet_transmissions[key]
 	np.savetxt(fname, data)
 
