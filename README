@@ -1,0 +1,17 @@
+Step 0: Transcribe GRB follow-up observations into a .json file. The GRBXXXXXX_json_from_obs.py
+scripts can be used as guides for how to format the .json observation files per the OAC schema.
+
+Step 1: Use the `get_obs_sources` function from `utils.py`, supplying the path/to/GRBXXXXXX.json as
+as as input, to get the telescope, instrument, and filter information for each observation.
+
+Step 2: Provide the outputs of Step 1) as keys to the fmap dictionary in `get_filters.py`.
+The value matched to each key should follow the naming convention of the Spanish Virtual Observatory
+(SVO) Filter Profile Service filter IDs.
+
+Step 3: Once all the filters needed for conversion of observations to LSST grizy / 2MASS JHK are
+acquired, run the `update_photometry` function from `utils.py` to identify which of the
+grizy/JHK filters overlap with the initial observation and calculate the magnitude in those filters.
+This function will automatically updated the GRBXXXXXX.json photometry data and produce a new
+GRBXXXXXX.json file.
+
+Step 4: TODO: PE description
