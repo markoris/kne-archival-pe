@@ -1,6 +1,0 @@
-python redistribute_obs_GRB050709.py
-python redistribute_obs_GRB060614.py
-python redistribute_obs_GRB080503.py
-python redistribute_obs_GRB130603B.py
-python redistribute_obs_GRB150101B.py
-python redistribute_obs_GRB160821B.py
