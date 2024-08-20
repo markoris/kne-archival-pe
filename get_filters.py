@@ -61,6 +61,10 @@ fmap = {
 	'HSTF160W'
 	'HSTF606W' 
 	'KeckIKs'
+	# GRB211211A
+	#'DOTU: 'Generic/Bessell.U',
+	#'DOTV: 'Generic/Bessell.V',
+	# etc...
 	# Destination filters
 	'lsstg': 'LSST/LSST.g',
 	'lsstr': 'LSST/LSST.r',
@@ -72,10 +76,22 @@ fmap = {
 	'2massk': '2MASS/2MASS.Ks'
 }
 
+# DOT filters not recorded on SVO Filter Profile Service
+# Use generic Bessel scaled by transmission values from 
+# Kumar+ (2022) JApA...43...27K
+DOT_transmissions = {'DOTU': 0.49,
+		     'DOTB': 0.62,
+		     'DOTV': 0.80,
+		     'DOTR': 0.79,
+		     'DOTI': 0.80}
+
 for key in fmap.keys():
 	fname = 'filters/'+fmap[key].replace('/', '.')+'.dat'
 	print(fname)
 	data = SvoFps.get_transmission_data(fmap[key])
 	data = np.array([data['Wavelength'], data['Transmission']]).T
+	# For instruments with no transmission data, use generic filters
+	# and scale by reported transmission, if applicable
+	if 'DOT' in key: data[:, 1] *= DOT_transmissions[key]
 	np.savetxt(fname, data)
 
