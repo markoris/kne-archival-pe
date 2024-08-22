@@ -71,7 +71,7 @@ for obs in data:
 			}
 			)
 
-grbdict = {"GRB211211A":
+grbdict = {"GRB230307A":
 		{"schema":"https://github.com/astrocatalogs/supernovae/blob/d3ef5fc/SCHEMA.md",
 		 "name": "GRB211211A",
 		"sources":[
