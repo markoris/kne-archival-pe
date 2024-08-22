@@ -29,14 +29,10 @@ instruments = 	{
 			'instrument': 'UVOT'},
 		'CAHA': {
 			'telescope': 'CAHA',
-			# CAHA instrument unclear, used g'r'i' filters
-			# no record of instrument/telescope details, assuming
-			# LAICA as sdss g'r'i' are close to sdss gri on LAICA
-			# and that will give an actual instrument response
-			'instrument': 'LAICA?' },
+			'instrument': 'CAFOS' },
 		'Gemini': {
 			'telescope': 'Gemini',
-			'instrument': 'GMOS-S'},
+			'instrument': 'NIRI'},
 		'MMT': {
 			'telescope': 'MMT',
 			'instrument': 'MMIRS'}
