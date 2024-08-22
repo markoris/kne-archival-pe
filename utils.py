@@ -38,9 +38,9 @@ def get_obs_sources(path_to_GRB_json):
 
 	# loop over all observations in the photometry dictionary
 	for observation in photometry:
-		try: all_filters.append(observation['telescope']+observation['band'])
+		try: all_filters.append(observation['telescope']+'.'+observation['instrument']+'.'+observation['band'])
 		# sometimes the telescope is included with the instrument
-		except KeyError: all_filters.append(observation['instrument']+observation['band'])
+		except KeyError: all_filters.append(observation['instrument']+'.'+observation['band'])
 
 	# Return all observations, removing duplicate instrument+band combinations
 	return np.unique(all_filters)
