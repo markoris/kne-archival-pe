@@ -25,7 +25,7 @@ instruments = 	{
 			'telescope': 'TESS',
 			'instrument': 'TESS'},
 		'RASA36': {
-			'telescope': 'El Sauce',
+			'telescope': 'ElSauce',
 			'instrument': 'RASA36'},
 		'KMTNet/SSO': {
 			'telescope': 'SSO',
