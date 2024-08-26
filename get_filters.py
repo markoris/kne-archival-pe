@@ -11,16 +11,6 @@ import numpy as np
  
 fmap = {
 	# Original observation filters
-	# GRB 050709 -> not being used! remove after rest of obs done, just example for now
-	'DanishR': 'LaSilla/DFOSC.Bessel_R',
-	'Gemini-Nr': 'Gemini/GMOS-N.r',
-	'HSTF814W': 'HST/ACS_WFC.F814W',
-	'VLTI': 'Paranal/FORS2.ESO1077',
-	'VLTR': 'Paranal/FORS2.ESO1076',
-	'VLTV': 'Paranal/FORS2.ESO1075',
-	'HST+ACSF606W': 'HST/ACS_WFC.F606W',
-	'HST+ACSF814W': 'HST/ACS_WFC.F814W',
-	'HST+WFPC2F606W': 'HST/WFPC2-WF.F606W',
 	# GRB130603B
 	'CAHA.DLR-MKIII.V': 'Generic/Johnson.V',  ### GENERIC
 	'GTC.OSIRIS.r': 'GTC/OSIRIS.sdss_r_filter',
@@ -62,11 +52,6 @@ fmap = {
 	'HST.WFC3.F606W': 'HST/WFC3_UVIS1.F606W',
 	'KeckI.MOSFIRE.Ks': 'Keck/NIRC2.Ks', 	### Could not find MOSFIRE, but NIRC2 is very similar
 	# GRB211211A
-	#'DOTU: 'Generic/Bessell.U',
-	#'DOTV: 'Generic/Bessell.V',
-	#'KMTNet/SSOR': 'Generic/Johnson.R',
-	#'KMTNet/SAAOI': 'Generic/Johnson.I',
-	# etc...
 	"CAHA.CAFOS.g'": 'TNO/ULTRACAM.g-3', # Could not find exact match, using close substitute 
 	'CAHA.CAFOS.i': 'TNO/ULTRACAM.i-3', # Could not find exact match, using close substitute
 	"CAHA.CAFOS.i'": 'TNO/ULTRACAM.i-3', # Could not find exact match, using close substitute
@@ -89,7 +74,7 @@ fmap = {
 	#GRB230307A
 	'CTIO.KMTNet.I': 'Generic/Johnson.I', 	### Generic
 	'CTIO.KMTNet.R': 'Generic/Johnson.R', 	### Generic
-	'El Sauce.RASA36.r' : 'Generic/Johnson.R', ### Generic
+	'ElSauce.RASA36.R' : 'Generic/Johnson.R', ### Generic
 	'Gemini.GMOS-S.r': 'Gemini/GMOS-S.r',
 	'Gemini.GMOS-S.z': 'Gemini/GMOS-S.z',
 	'SAAO.KMTNet.I': 'Generic/Johnson.I', 	### Generic
@@ -105,14 +90,14 @@ fmap = {
 	'TESS.TESS.Red': 'TESS/TESS.Red',
 	'VLT.XSH.K': 'Paranal/HAWKI.Ks', # Use HAWK-I Ks band as proxy, no Xshooter filter data
 	# Destination filters
-	'lsstg': 'LSST/LSST.g',
-	'lsstr': 'LSST/LSST.r',
-	'lssti': 'LSST/LSST.i',
-	'lsstz': 'LSST/LSST.z',
-	'lssty': 'LSST/LSST.y',
-	'2massj': '2MASS/2MASS.J',
-	'2massh': '2MASS/2MASS.H',
-	'2massk': '2MASS/2MASS.Ks'
+	'LSST.LSST.g': 'LSST/LSST.g',
+	'LSST.LSST.r': 'LSST/LSST.r',
+	'LSST.LSST.i': 'LSST/LSST.i',
+	'LSST.LSST.z': 'LSST/LSST.z',
+	'LSST.LSST.y': 'LSST/LSST.y',
+	'2MASS.2MASS.J': '2MASS/2MASS.J',
+	'2MASS.2MASS.H': '2MASS/2MASS.H',
+	'2MASS.2MASS.Ks': '2MASS/2MASS.Ks'
 }
 
 # DOT filters not recorded on SVO Filter Profile Service
@@ -135,9 +120,23 @@ KMTNet_transmissions = {'SSO.KMTNet.R': 0.90,
 			}	
 
 for key in fmap.keys():
-	if 'NOT.MOSCA' in key: continue
-	fname = 'filters/'+fmap[key].replace('/', '.')+'.dat'
+	if 'NOT.MOSCA' in key or 'Generic' in fmap[key]:
+		fname = 'filters/'+key.replace('/', '.')+'.dat'
+	else:
+		fname = 'filters/'+fmap[key].replace('/', '.')+'.dat'
 	print(fname)
+	if 'NOT.MOSCA' in key:
+		import requests
+		url = "https://www.not.iac.es/instruments/filters/curves-ascii/14.txt"
+		data = requests.get(url).content
+		with open(fname, "wb") as file:
+			file.write(data)
+		data = np.loadtxt(fname)
+		data[data[:, 1] < 0, 1] = 0
+		data[:, 1] /= 100
+		data[:, 0] *= 10
+		np.savetxt(fname, data)
+		continue
 	data = SvoFps.get_transmission_data(fmap[key])
 	data = np.array([data['Wavelength'], data['Transmission']]).T
 	# For instruments with no transmission data, use generic filters
