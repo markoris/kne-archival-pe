@@ -299,6 +299,12 @@ class GRB:
 			overlap_filters = [filt for filt in overlap_filters if filt is not None]
 			if verbose: print(old_filt, overlap_filters)
 
+			# if there is no overlap with out filters, just scrap the observation
+			if len(overlap_filters) == 0:
+				self.photometry = np.delete(self.photometry, obs_idx+obs_idx_offset-1).tolist()
+				obs_idx_offset -= 1
+				continue
+
 			# loop through overlapping filters and redistribute flux
 			for filt_idx in range(len(overlap_filters)):
 				# in the case of the first new filter, remove old photometry
@@ -322,7 +328,7 @@ class GRB:
 				new_obs_dict["instrument"] = original_obs["instrument"]
 				new_obs_dict["telescope"] = original_obs["telescope"]
 				new_obs_dict["system"] = "AB"
-				new_obs_dict["source"] = "converted from %s-band observation" % old_filt[-1]
+				new_obs_dict["source"] = f"converted from {old_filt.split('.')[-1]}-band observation"
 				if "e_magnitude" in original_obs.keys():
 					new_obs_dict["e_magnitude"] = original_obs["e_magnitude"]
 				elif ("e_upper_magnitude" in original_obs.keys() and \
@@ -337,7 +343,10 @@ class GRB:
 
 		self.jsondata[self.name]['photometry'] = self.photometry
 
-		with open(f'kne-for-pe/{self.name}_updated_obs.json', 'w') as f:
+		from pathlib import Path
+		Path(f'{self.name}_data').mkdir(parents=True, exist_ok=True)
+
+		with open(f'{self.name}_data/{self.name}.json', 'w') as f:
 			json.dump(self.jsondata, f, ensure_ascii=True, indent=4)
 
 if __name__=="__main__":
